@@ -1,0 +1,17 @@
+{
+    "position":"0",
+    "dialogs":[
+        {   
+            "name":"你",
+            "content":"你好"
+        },
+        {
+            "name":"角色1",
+            "content":"对话1"
+        },
+        {
+            "name":"你",
+            "content":"对话2"
+        }
+    ]
+}
