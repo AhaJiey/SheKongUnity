@@ -10,7 +10,7 @@ public class Plot : MonoBehaviour
     private float waitCount=0;
     private bool PlotEnable=true;
     private void Update() {
-        if(PlotEnable==false && InParam.inParam.isPlot==false){
+        if(PlotEnable==false && CharacterParam.param.isPlot==false){
             waitCount+=Time.deltaTime;
             if(waitCount>=CoolingTime){
                 PlotEnable=true;
@@ -20,20 +20,32 @@ public class Plot : MonoBehaviour
     }
     // 触发剧情
     private void OnTriggerStay(Collider other) {
-        if(plotFile!=null && PlotEnable && InParam.inParam.isPlot!=true){
+        if(type==plotType.Daily && PlotEnable ==true && CharacterParam.param.isPlot!=true){
+            RemindUI.remindUI.setInfoPlotText("F进入剧情");
+            RemindUI.remindUI.showInfoPlot();
+        }
+        else{
+            RemindUI.remindUI.setInfoPlotText("");
+            RemindUI.remindUI.hideInfoPlot();
+        }
+        if(plotFile!=null && PlotEnable && CharacterParam.param.isPlot!=true){
             if(type==plotType.Force || Input.GetKey(InputControl.input.EnterPlotKey)){
                 InputControl.UnLockMouse();
                 PlotManager.plotManager.Play(plot);
-                InParam.inParam.isPlot=true;
+                CharacterParam.param.isPlot=true;
                 PlotEnable=false;
             }
         }
     }
     private void OnTriggerExit(Collider other) {
-        PlotEnable=false;
-        InParam.inParam.isPlot=false;
-        Dialog.dialog.hide();
-        if(type!=plotType.Daily && InParam.inParam.isPlot==false){
+        RemindUI.remindUI.setInfoPlotText("");
+        RemindUI.remindUI.hideInfoPlot();
+        if(CharacterParam.param.isPlot==true){
+            PlotEnable=false;
+        }
+        CharacterParam.param.isPlot=false;
+        DialogUI.dialog.hide();
+        if(type!=plotType.Daily && CharacterParam.param.isPlot==false){
             transform.GameObject().SetActive(false);
         }
     }

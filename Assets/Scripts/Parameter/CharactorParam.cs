@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InParam : MonoBehaviour
+public class CharacterParam : MonoBehaviour
 {
     // 单例模式
-    public static InParam inParam;
+    public static CharacterParam param;
     private void Awake() {
-        inParam=this;
+        param=this;
     }
     public bool moveEnabled=true; // 允许移动
     public bool jumpEnabled=true;   // 允许跳跃

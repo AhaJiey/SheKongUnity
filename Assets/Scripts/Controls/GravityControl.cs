@@ -23,7 +23,7 @@ public class GravityControl : MonoBehaviour
     // 重力效果
     private void Gravity(){
         isGround=Physics.CheckSphere(checkObj.position,checkRadius,checkLayer); // 检测碰撞
-        InParam.inParam.jumpEnabled=isGround;
+        CharacterParam.param.jumpEnabled=isGround;
         if(playerControl.moveInY.y<0 && isGround==true){    // 在地面时下落距离重置
             playerControl.moveInY.y=-0.5f;
         }

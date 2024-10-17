@@ -10,7 +10,7 @@ public class PlotManager : MonoBehaviour
         plotManager=this;
     }
     private void Start() {
-        childMaxCount=Dialog.dialog.optsBut.Count;
+        childMaxCount=DialogUI.dialog.optsBut.Count;
     }
     private List<DialogGroup> plot;     // 剧情
     private int count=0;    // 对话组的第几句对话
@@ -19,30 +19,30 @@ public class PlotManager : MonoBehaviour
     // 开始剧情
     public void Play(List<DialogGroup> plot){
         this.plot=plot;     // 开始的某个剧情
-        Dialog.dialog.show();       // 显示的对话框
+        DialogUI.dialog.show();       // 显示的对话框
         Continue();     // 播放第一句
     }
     // 结束剧情
     public void End(){
         count=0;
         nowDialogGroup=0;
-        Dialog.dialog.hideNextBut();
-        Dialog.dialog.hideOptsBut();
+        DialogUI.dialog.hideNextBut();
+        DialogUI.dialog.hideOptsBut();
 
         InputControl.LockMouse();
-        InParam.inParam.isPlot=false;
-        Dialog.dialog.hide();
+        CharacterParam.param.isPlot=false;
+        DialogUI.dialog.hide();
     }
     private int showOptsButs=0;       // 显示的选项按钮数量
     public void Continue(){
         // 开始默认隐藏，等待处理
-        Dialog.dialog.hideNextBut();
-        Dialog.dialog.hideOptsBut();
+        DialogUI.dialog.hideNextBut();
+        DialogUI.dialog.hideOptsBut();
         if(count<plot[nowDialogGroup].dialogs.Length){
             // 当前对话组没有结束时
-            Dialog.dialog.showNextBut();
-            Dialog.dialog.SetUIName(plot[nowDialogGroup].dialogs[count].name);
-            Dialog.dialog.SetUIContent(plot[nowDialogGroup].dialogs[count].content);
+            DialogUI.dialog.showNextBut();
+            DialogUI.dialog.SetUIName(plot[nowDialogGroup].dialogs[count].name);
+            DialogUI.dialog.SetUIContent(plot[nowDialogGroup].dialogs[count].content);
             count++;
         }
         else{
@@ -54,7 +54,7 @@ public class PlotManager : MonoBehaviour
                 return;
             }
             // 计算显示的数量并设置按钮的文本
-            Dialog.dialog.showOptsBut( showOptsButs );
+            DialogUI.dialog.showOptsBut( showOptsButs );
             count=0;
         }
     }
@@ -64,7 +64,7 @@ public class PlotManager : MonoBehaviour
         // 设置按钮文本
         for(int i=nowDialogGroup*childMaxCount+1;i<=nowDialogGroup*childMaxCount+childMaxCount && i<plot.Count;i++){
             if(plot[i]!=null){
-                Dialog.dialog.setOptsButText(i-nowDialogGroup*childMaxCount-1,getFirstDialog( plot[i] ));
+                DialogUI.dialog.setOptsButText(i-nowDialogGroup*childMaxCount-1,getFirstDialog( plot[i] ));
             }
         }
         // 计算显示的数量

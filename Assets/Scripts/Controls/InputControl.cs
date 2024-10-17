@@ -8,6 +8,9 @@ public class InputControl : MonoBehaviour
     private void Awake() {
         input=this;
     }
+    private void Start() {
+        LockMouse();
+    }
     // 解锁鼠标 静态方法 可以直接调用
     public static void UnLockMouse(){
         Cursor.lockState=CursorLockMode.None;
@@ -30,7 +33,7 @@ public class InputControl : MonoBehaviour
 
     // 移动输入
     private void MoveInput(){
-        if(InParam.inParam.moveEnabled==true){
+        if(CharacterParam.param.moveEnabled==true){
             Horizontal=Input.GetAxis("Horizontal");
             Vertical=Input.GetAxis("Vertical");
         }
@@ -44,7 +47,7 @@ public class InputControl : MonoBehaviour
     public float MouseY; // 鼠标竖直位移
     //鼠标输入
     private void MouseInput(){
-        if(InParam.inParam.mouseEnabled==true){
+        if(CharacterParam.param.mouseEnabled==true){
             MouseX=Input.GetAxis("Mouse X");
             MouseY=Input.GetAxis("Mouse Y");
         }
@@ -57,7 +60,7 @@ public class InputControl : MonoBehaviour
     public KeyCode JumpKey=KeyCode.Space;
     //跳跃输入
     private void JumpInput(){
-        if(InParam.inParam.jumpEnabled==true && Input.GetKey(JumpKey)){
+        if(CharacterParam.param.jumpEnabled==true && Input.GetKey(JumpKey)){
             Jump=1;
         }
         else{

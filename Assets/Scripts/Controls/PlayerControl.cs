@@ -18,7 +18,8 @@ public class PlayerControl : MonoBehaviour
         rotate();
         animPlay();
     }
-    public float Speed; // 移动速度
+    public float walkSpeed; // 移动速度
+    public float runSpeed; 
     public float JumpHeight;
 
     public Vector3 moveInXZ=Vector3.zero;
@@ -29,14 +30,22 @@ public class PlayerControl : MonoBehaviour
         moveInXZ=transform.forward*InputControl.input.Vertical+transform.right*InputControl.input.Horizontal; // 获得移动的方向和位移 就是一个向量
 
         moveInXZ=moveInXZ.normalized; // 防止斜着走时过快
-        if(Input.GetKey(KeyCode.LeftShift)==false){ // 不是跑步状态时 降低一半的速度
-            moveInXZ=Vector3.ClampMagnitude(moveInXZ,0.5f); 
-        }
 
         moveInY.y+=JumpHeight*InputControl.input.Jump; // 跳跃的高度
 
         // 移动
-        character.Move(moveInXZ*Speed*Time.deltaTime);
+        if(CharacterParam.param.isPlot!=true){
+            if(Input.GetKey(KeyCode.LeftShift)){
+                moveInXZ*=runSpeed;
+            }
+            else{
+                moveInXZ*=walkSpeed;
+            }
+            character.Move(moveInXZ*Time.deltaTime);
+        }
+        else{
+            moveInXZ=Vector3.zero;
+        }
         character.Move(moveInY*Time.deltaTime);
     }
     private float angleY=0; 

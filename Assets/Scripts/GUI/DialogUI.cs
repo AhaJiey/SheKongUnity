@@ -5,34 +5,26 @@ using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Dialog : MonoBehaviour
+public class DialogUI : BaseUI
 {
-    public static Dialog dialog;
+    public static DialogUI dialog;
     private void Awake() {
         dialog=this;
         optsBut=new List<GameObject>(optionButGroup.transform.childCount);      // 初始化选项列表
         for(int i=0;i<optionButGroup.transform.childCount;i++){
             optsBut.Add(optionButGroup.transform.GetChild(i).GameObject());
         }
+    }
+    private void Start() {
         hideNextBut();      // 默认隐藏
         hideOptsBut();
         hide();
-
     }
-    public GameObject dialogObj;    // 对话框对象
     public TextMeshProUGUI Name;    // 人物名称
     public TextMeshProUGUI Content;     // 人物对话内容
     public GameObject nextBut;      // 继续对话按钮
     public GameObject optionButGroup;      // 选项按钮父类
     public List<GameObject> optsBut;      // 选项按钮
-    // 显示对话框
-    public void show(){
-        dialogObj.SetActive(true);
-    }
-    // 隐藏对话框
-    public void hide(){
-        dialogObj.SetActive(false);
-    }
     // 设置人物名称
     public void SetUIName(string text){
         Name.text=text;
